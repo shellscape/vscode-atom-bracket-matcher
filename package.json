@@ -3,9 +3,15 @@
   "version": "0.1.0",
   "description": "A subtle bracket match decorator for VS Code based on Atom",
   "license": "MIT",
-  "repository": "https://github.com/shellscape/vscode-shellscape-brackets",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shellscape/vscode-shellscape-brackets"
+  },
   "author": "Andrew Powell <andrew@shellscape.org>",
-  "bugs": "https://github.com/shellscape/vscode-shellscape-brackets/issues",
+  "homepage": "https://github.com/shellscape/vscode-shellscape-brackets",
+  "bugs": {
+    "url": "https://github.com/shellscape/vscode-shellscape-brackets/issues"
+  },
   "main": "./dist/extension.js",
   "engines": {
     "vscode": "^1.73.0"
@@ -101,7 +107,7 @@
       }
     }
   },
-  "displayName": "A subtle bracket match decorator for VS Code based on Atom",
+  "displayName": "Shellscape Brackets",
   "icon": "assets/icon-256.png",
   "lint-staged": {
     "*.{ts,js}": [
