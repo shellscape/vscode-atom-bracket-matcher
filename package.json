@@ -1,5 +1,5 @@
 {
-  "name": "subtle-brackets",
+  "name": "vscode-shellscape-brackets",
   "version": "0.1.0",
   "description": "A subtle bracket match decorator for VS Code based on Atom",
   "license": "MIT",
