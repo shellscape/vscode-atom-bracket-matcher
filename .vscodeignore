@@ -1,6 +1,6 @@
 *
 .husky
 src
-dist
-!dist/x.js
+!dist
 !LICENSE
+!node_modules

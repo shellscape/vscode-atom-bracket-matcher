@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "description": "A subtle bracket match decorator for VS Code based on Atom",
   "license": "MIT",
-  "repository": "shellscape/vscode-shellscape-brackets",
+  "repository": "https://github.com/shellscape/vscode-shellscape-brackets",
   "author": "Andrew Powell <andrew@shellscape.org>",
   "bugs": "https://github.com/shellscape/vscode-shellscape-brackets/issues",
-  "main": "./dist/x.js",
+  "main": "./dist/extension.js",
   "engines": {
     "vscode": "^1.73.0"
   },
@@ -26,11 +26,6 @@
     "vs:pack": "vsce package --allow-star-activation --no-dependencies",
     "vs:publish": "vsce publish --allow-star-activation --no-dependencies"
   },
-  "files": [
-    "assets",
-    "dist/x.js",
-    "README.md"
-  ],
   "keywords": [
     "bracket",
     "brackets",
@@ -41,8 +36,8 @@
     "lodash.clonedeep": "^4.5.0",
     "loglevel": "^1.6.1",
     "loglevel-plugin-prefix": "^0.8.4",
-    "prismjs": "^1.15.0",
-    "uuid": "9.0.0"
+    "nanoid": "3.3.4",
+    "prismjs": "^1.15.0"
   },
   "devDependencies": {
     "@types/lodash.clonedeep": "^4.5.7",

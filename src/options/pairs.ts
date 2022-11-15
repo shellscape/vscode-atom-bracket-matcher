@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { v4 as uuid } from 'uuid';
+import { nanoid } from 'nanoid';
 
 import deep from 'lodash.clonedeep';
 
@@ -31,7 +31,7 @@ export const setPairs = (settings: vscode.WorkspaceConfiguration): IPairs => {
     defArr.push(pair.close);
 
     // Generate id and save pair settings
-    acc[uuid()] = deep(pair);
+    acc[nanoid()] = deep(pair);
     return acc;
   }, {} as any);
   return pairs;
