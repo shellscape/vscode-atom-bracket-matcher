@@ -11,7 +11,7 @@ function getSettings() {
 
 function disableNative(settings: any) {
   if (!settings.disableNative) return;
-  vscode.workspace.getConfiguration().update('editor.matchBrackets', false, true);
+  vscode.workspace.getConfiguration().update('editor.matchBrackets', 'never', true);
 }
 
 export function activate(context: vscode.ExtensionContext) {
@@ -48,6 +48,6 @@ export function deactivate(context: vscode.ExtensionContext) {
     .get<boolean>('subtleBrackets.disableNative');
   const matchBrackets = vscode.workspace.getConfiguration().get<boolean>('editor.matchBrackets');
   if (disabledNative && !matchBrackets) {
-    vscode.workspace.getConfiguration().update('editor.matchBrackets', true, true);
+    vscode.workspace.getConfiguration().update('editor.matchBrackets', 'always', true);
   }
 }

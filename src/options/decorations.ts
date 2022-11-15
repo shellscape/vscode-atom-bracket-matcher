@@ -5,6 +5,13 @@ import { getPairs } from './pairs';
 
 let decorations: { [key: string]: vscode.TextEditorDecorationType } = {};
 
+const defaults = {
+  borderColor: 'lime',
+  borderStyle: 'none none dotted none',
+  borderWidth: '1px',
+  light: { borderColor: '#333333' }
+};
+
 export const setDecorations = (settings: vscode.WorkspaceConfiguration) => {
   const styles = {
     global: deep(settings.style),
@@ -17,24 +24,13 @@ export const setDecorations = (settings: vscode.WorkspaceConfiguration) => {
     }, {} as any)
   };
 
-  // Build decorations
-  decorations = Object.keys(styles).reduce((acc, styleFor) => {
-    const style = styles[styleFor];
-    // Add default borderColor if the style lacks it
-    if (!style.hasOwnProperty('borderColor')) {
-      style.borderColor = '#D4D4D4';
-      style.light = { borderColor: '#333333' };
-    }
-    if (!style.hasOwnProperty('borderStyle')) {
-      style.borderStyle = 'none none solid none';
-    }
-    if (!style.hasOwnProperty('borderWidth')) {
-      style.borderWidth = '1px';
-    }
+  decorations = Object.keys(styles).reduce((prev, styleFor) => {
+    const style = Object.assign(defaults, styles[styleFor]);
 
-    acc[styleFor] = vscode.window.createTextEditorDecorationType(style);
-    return acc;
-  }, {} as any);
+    prev[styleFor] = vscode.window.createTextEditorDecorationType(style);
+
+    return prev;
+  }, {} as Record<string, vscode.TextEditorDecorationType>);
 
   return decorations;
 };
