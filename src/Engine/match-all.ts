@@ -3,12 +3,12 @@ import { IMatch } from '../types';
 // Returns all matches for a regular expression on a string
 // - startAt: inclusive
 // - endAt: non-inclusive
-export default function matchAll(
+export const matchAll = (
   str: string,
   regex: RegExp,
   startAt?: number | false,
   endAt?: number | false
-): IMatch[] {
+): IMatch[] => {
   // Restart regex exec
   regex.lastIndex = 0;
 
@@ -18,7 +18,7 @@ export default function matchAll(
 
   const all: IMatch[] = [];
   while (current) {
-    const index = current.index;
+    const { index } = current as any;
 
     // Return for endAt; find next for startAt
     if ((endAt || endAt === 0) && index >= endAt) return all;
@@ -31,4 +31,4 @@ export default function matchAll(
     next();
   }
   return all;
-}
+};

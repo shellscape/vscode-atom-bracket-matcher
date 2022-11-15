@@ -1,117 +1,130 @@
 {
-    "name": "subtle-brackets",
-    "displayName": "Subtle Match Brackets",
-    "description": "Underlined matching brackets and more",
-    "version": "3.0.0",
-    "publisher": "rafamel",
-    "author": {
-        "name": "rafamel"
-    },
-    "icon": "icon_256.png",
-    "categories": [
-        "Other"
-    ],
-    "keywords": [
-        "bracket",
-        "brackets",
-        "match",
-        "matching"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/rafamel/subtle-brackets"
-    },
-    "bugs": {
-        "url": "https://github.com/rafamel/subtle-brackets/issues"
-    },
-    "license": "SEE LICENSE IN LICENSE",
-    "engines": {
-        "vscode": "^1.12.0"
-    },
-    "activationEvents": [
-        "*"
-    ],
-    "main": "./out/extension",
-    "contributes": {
-        "configuration": {
-            "type": "object",
-            "title": "Subtle Brackets",
-            "properties": {
-                "subtleBrackets.disableNative": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Permanently disable the native matchBrackets"
-                },
-                "subtleBrackets.parse": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "If true, the document will be parsed so brackets within strings don't trigger the decoration"
-                },
-                "subtleBrackets.style": {
-                    "type": "object",
-                    "default": {
-                        "borderWidth": "1px",
-                        "borderStyle": "none none solid none"
-                    },
-                    "description": "Default style for matching brackets"
-                },
-                "subtleBrackets.pairs": {
-                    "type": "array",
-                    "default": [
-                        {
-                            "open": "(",
-                            "close": ")"
-                        },
-                        {
-                            "open": "[",
-                            "close": "]"
-                        },
-                        {
-                            "open": "{",
-                            "close": "}"
-                        }
-                    ],
-                    "description": "Pairs of matching brackets"
-                }
+  "name": "subtle-brackets",
+  "version": "0.1.0",
+  "description": "A subtle bracket match decorator for VS Code based on Atom",
+  "license": "MIT",
+  "repository": "shellscape/vscode-shellscape-brackets",
+  "author": "Andrew Powell <andrew@shellscape.org>",
+  "bugs": "https://github.com/shellscape/vscode-shellscape-brackets/issues",
+  "main": "./dist/x.js",
+  "engines": {
+    "vscode": "^1.73.0"
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "bundle": "esbuild ./src/extension.ts --bundle --external:vscode --format=cjs --outfile=dist/x.js --platform=node --sourcemap=inline",
+    "lint": "pnpm lint:docs && pnpm lint:json && pnpm lint:js",
+    "lint-staged": "lint-staged",
+    "lint:docs": "prettier --write README.md",
+    "lint:js": "eslint --cache --fix --cache src",
+    "lint:json": "prettier --write '.vscode/*.json' *.json",
+    "prepublishOnly": "pnpm lint && pnpm build",
+    "pretest": "pnpm build",
+    "prevs:pack": "pnpm bundle",
+    "security": "pnpm audit --audit-level=high --prod",
+    "test": "pnpm install && ava",
+    "vs:pack": "vsce package --allow-star-activation --no-dependencies",
+    "vs:publish": "vsce publish --allow-star-activation --no-dependencies"
+  },
+  "files": [
+    "assets",
+    "dist/x.js",
+    "README.md"
+  ],
+  "keywords": [
+    "bracket",
+    "brackets",
+    "match",
+    "matching"
+  ],
+  "dependencies": {
+    "lodash.clonedeep": "^4.5.0",
+    "loglevel": "^1.6.1",
+    "loglevel-plugin-prefix": "^0.8.4",
+    "prismjs": "^1.15.0",
+    "uuid": "9.0.0"
+  },
+  "devDependencies": {
+    "@types/lodash.clonedeep": "^4.5.7",
+    "@types/node": "18.11.9",
+    "@types/prismjs": "^1.26.0",
+    "@types/uuid": "8.3.4",
+    "@types/vscode": "^1.73.1",
+    "esbuild": "^0.15.14",
+    "eslint-config-shellscape": "^6.0.0",
+    "husky": "8.0.2",
+    "prettier-plugin-package": "^1.3.0",
+    "typescript": "4.8.4",
+    "vscode": "^1.1.21"
+  },
+  "activationEvents": [
+    "*"
+  ],
+  "categories": [
+    "Other"
+  ],
+  "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "Subtle Brackets",
+      "properties": {
+        "subtleBrackets.disableNative": {
+          "type": "boolean",
+          "default": true,
+          "description": "Permanently disable the native matchBrackets"
+        },
+        "subtleBrackets.parse": {
+          "type": "boolean",
+          "default": true,
+          "description": "If true, the document will be parsed so brackets within strings don't trigger the decoration"
+        },
+        "subtleBrackets.style": {
+          "type": "object",
+          "default": {
+            "borderWidth": "1px",
+            "borderStyle": "none none solid none"
+          },
+          "description": "Default style for matching brackets"
+        },
+        "subtleBrackets.pairs": {
+          "type": "array",
+          "default": [
+            {
+              "open": "(",
+              "close": ")"
+            },
+            {
+              "open": "[",
+              "close": "]"
+            },
+            {
+              "open": "{",
+              "close": "}"
             }
+          ],
+          "description": "Pairs of matching brackets"
         }
-    },
-    "scripts": {
-        "precommit": "cross-env MSG=\"Committing in:\" nps validate",
-        "vscode:prepublish": "nps build",
-        "build": "nps build",
-        "watch": "nps watch",
-        "fix": "nps fix",
-        "lint": "nps lint",
-        "lint:md": "nps lint.md",
-        "test": "nps test",
-        "validate": "nps validate",
-        "update": "nps update",
-        "clean": "nps clean",
-        "postinstall": "node ./node_modules/vscode/bin/install"
-    },
-    "devDependencies": {
-        "@types/mocha": "^5.2.5",
-        "@types/node": "^10.9.3",
-        "@types/uuid": "^3.4.4",
-        "cross-env": "^5.2.0",
-        "husky": "^0.14.3",
-        "markdownlint-cli": "^0.13.0",
-        "mocha": "^5.2.0",
-        "nps": "^5.9.3",
-        "prettier": "^1.14.2",
-        "shx": "^0.3.2",
-        "tslint": "^5.11.0",
-        "tslint-config-prettier": "^1.15.0",
-        "tslint-language-service": "^0.9.6",
-        "typescript": "^2.9.2",
-        "vscode": "^1.1.21"
-    },
-    "dependencies": {
-        "lodash.clonedeep": "^4.5.0",
-        "loglevel": "^1.6.1",
-        "loglevel-plugin-prefix": "^0.8.4",
-        "prismjs": "^1.15.0",
-        "uuid": "^3.3.2"
+      }
     }
+  },
+  "displayName": "A subtle bracket match decorator for VS Code based on Atom",
+  "icon": "assets/icon-256.png",
+  "lint-staged": {
+    "*.{ts,js}": [
+      "eslint --fix --cache"
+    ],
+    "**/(package|tsconfig(.*)?).json": [
+      "prettier --write"
+    ],
+    "(pnpm-workspace|.github/**/*).{yml,yaml}": [
+      "prettier --write"
+    ],
+    "*package.json": [
+      "prettier --write --plugin=prettier-plugin-package"
+    ],
+    "((.github/**/*)|(README|CHANGELOG)|(**/(README|CHANGELOG))).md": [
+      "prettier --write"
+    ]
+  },
+  "publisher": "Andrew Powell <andrew@shellscape.org>"
 }

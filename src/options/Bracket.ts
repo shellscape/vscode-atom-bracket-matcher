@@ -1,21 +1,22 @@
 import * as vscode from 'vscode';
-import pairs from './pairs';
-import decorations from './decorations';
 
-export default class Bracket {
+import { getPairs } from './pairs';
+import { getDecorations } from './decorations';
+
+export class Bracket {
   public str: string;
   public opposite: string;
   public type: string;
   public parse: boolean;
   constructor(private pairId: string, open: boolean) {
-    const pair = pairs.get()[pairId];
+    const pair = getPairs()[pairId];
     this.type = open ? 'open' : 'close';
-    this.str = pair[this.type];
+    this.str = (pair as any)[this.type];
     this.opposite = pair[open ? 'close' : 'open'];
     // tslint:disable-next-line
-    this.parse = !!(pair.parse || pair.parse == undefined);
+    this.parse = !!(pair.parse || typeof (pair as any).parse === 'undefined');
   }
   get decoration(): vscode.TextEditorDecorationType {
-    return decorations.get()[this.pairId] || decorations.get().global;
+    return getDecorations()[this.pairId] || getDecorations().global;
   }
 }

@@ -1,11 +1,14 @@
 import * as vscode from 'vscode';
-import { IMatch, ILineMatch, IPairMatch } from '../types';
-import options from '../options';
-import matchAll from './match-all';
-import PrismParser from './PrismParser';
-import logger from '../utils/logger';
 
-export default class Paper {
+import { IMatch, ILineMatch, IPairMatch } from '../types';
+import { getOptions } from '../options';
+
+import { logger } from '../utils/logger';
+
+import { matchAll } from './match-all';
+import { PrismParser } from './PrismParser';
+
+export class Paper {
   public language: string;
   private editor?: vscode.TextEditor;
   private doc?: vscode.TextDocument;
@@ -27,14 +30,10 @@ export default class Paper {
   public get lines(): number {
     return (this.doc && this.doc.lineCount) || 0;
   }
-  public getLine(n): string {
+  public getLine(n: number): string {
     return (this.doc && this.doc.lineAt(n).text) || '';
   }
-  public getMatches(
-    line: number,
-    startAt?: number | false,
-    endAt?: number | false
-  ): IMatch[] {
+  public getMatches(line: number, startAt?: number | false, endAt?: number | false): IMatch[] {
     this.resetOnLanguage();
     if (!this.matches[line]) this.matches[line] = this._getMatches(line);
 
@@ -48,7 +47,7 @@ export default class Paper {
   public getAdjacent(): ILineMatch | void {
     if (!this.editor || !this.doc || this.lines <= 0) return;
 
-    const selection = this.editor.selection;
+    const { selection } = this.editor;
     const range = new vscode.Range(selection.start, selection.end);
     if (!range.isEmpty) return;
 
@@ -76,17 +75,14 @@ export default class Paper {
     if (!pos.end || !this.editor) return;
 
     // Set decoration
-    const { brackets } = options.get();
+    const { brackets } = getOptions();
     this.decoration = brackets[pos.start.str].decoration;
 
     // Set ranges
     const ranges = {
       start: new vscode.Range(
         new vscode.Position(pos.start.line, pos.start.index),
-        new vscode.Position(
-          pos.start.line,
-          pos.start.index + pos.start.str.length
-        )
+        new vscode.Position(pos.start.line, pos.start.index + pos.start.str.length)
       ),
       end: new vscode.Range(
         new vscode.Position(pos.end.line, pos.end.index),
@@ -121,10 +117,10 @@ export default class Paper {
     }
   }
   private _getMatches(line: number) {
-    const matches = matchAll(this.getLine(line), options.get().regexp);
+    const matches = matchAll(this.getLine(line), getOptions().regexp);
     if (!this.parser.matches.length) return matches;
 
-    const { brackets } = options.get();
+    const { brackets } = getOptions();
     const parsedLine = this.parser.matches[line];
     return matches.filter((match, i) => {
       // If it not should not be parsed, don't filter

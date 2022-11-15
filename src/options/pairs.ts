@@ -1,17 +1,18 @@
 import * as vscode from 'vscode';
 import { v4 as uuid } from 'uuid';
-import warn from '../utils/warn';
-import * as deep from 'lodash.clonedeep';
+
+import deep from 'lodash.clonedeep';
+
+import { warn } from '../utils/warn';
 import { IPairs } from '../types';
 
 let pairs: IPairs = {};
-function setPairs(settings: vscode.WorkspaceConfiguration): IPairs {
+
+export const setPairs = (settings: vscode.WorkspaceConfiguration): IPairs => {
   const defArr: string[] = [];
-  pairs = settings.pairs.reduce((acc, pair) => {
+  pairs = settings.pairs.reduce((acc: any, pair: any) => {
     if (!pair.open || !pair.close) {
-      warn(
-        `Each bracket pair must have an "open" and "close" key. Otherwise they'll be ignored.`
-      );
+      warn(`Each bracket pair must have an "open" and "close" key. Otherwise they'll be ignored.`);
       return acc;
     }
     if (
@@ -32,12 +33,8 @@ function setPairs(settings: vscode.WorkspaceConfiguration): IPairs {
     // Generate id and save pair settings
     acc[uuid()] = deep(pair);
     return acc;
-  }, {});
+  }, {} as any);
   return pairs;
-}
+};
 
-function getPairs(): IPairs {
-  return pairs;
-}
-
-export default { get: getPairs, set: setPairs };
+export const getPairs = (): IPairs => pairs;

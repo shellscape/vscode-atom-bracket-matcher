@@ -1,11 +1,13 @@
 import * as prism from 'prismjs';
-// import { languages } from 'prismjs/components';
-import * as loadLanguages from 'prismjs/components/index';
+import loadLangs from 'prismjs/components/index';
+
 import { IPrismMatch } from '../types';
-import matchAll from './match-all';
-import options from '../options';
-import config from '../config';
-import logger from '../utils/logger';
+
+import { getOptions } from '../options';
+import { config } from '../config';
+import { logger } from '../utils/logger';
+
+import { matchAll } from './match-all';
 
 // Initialize Prism languages
 let languagesLoad = false;
@@ -14,10 +16,10 @@ function loadLanguages() {
 
   logger.info('prismjs loadLanguages()');
   languagesLoad = true;
-  loadLanguages();
+  loadLangs();
 }
 
-export default class PrismParser {
+export class PrismParser {
   public parsed: IPrismMatch[][];
   public matches: IPrismMatch[][];
   private language: string;
@@ -33,22 +35,22 @@ export default class PrismParser {
     this.parsed = [];
     this.matches = [];
     this.language = this.getLanguageId(language);
-    if (lines > config.maxPrismLines || !options.get().parse) {
-      return endLogger();
+    if (lines > config.maxPrismLines || !getOptions().parse) {
+      return endLogger() as any;
     }
 
     // Parse
     loadLanguages();
     logger.debug('run: PrismParser.tokenize()');
     const tokenized = this.tokenize();
-    if (!tokenized) return endLogger();
+    if (!tokenized) return endLogger() as any;
 
     logger.debug('run: PrismParser.parse()');
     const parsed = this.parse(tokenized);
     this.parsed = parsed.parsed;
     this.matches = parsed.matches;
 
-    return endLogger();
+    return endLogger() as any;
   }
   public get strategy(): string[] {
     return this.strategies.hasOwnProperty(this.language)
@@ -67,10 +69,8 @@ export default class PrismParser {
       logger.warn(err);
     }
   }
-  private parse(
-    tokenized: any
-  ): { parsed: IPrismMatch[][]; matches: IPrismMatch[][] } {
-    function perLine(tokens) {
+  private parse(tokenized: any): { matches: IPrismMatch[][]; parsed: IPrismMatch[][] } {
+    function perLine(tokens: any) {
       if (Array.isArray(tokens)) return tokens.forEach(perLine);
       if (typeof tokens === 'string') return forStrings(tokens, 'none');
       if (tokens.content) {
@@ -80,12 +80,12 @@ export default class PrismParser {
         perLine(tokens.content);
       }
     }
-    function forStrings(str: string, type) {
+    function forStrings(str: string, type: any) {
       const splitted = str.split('\n');
       // Push first part of string to current line
       const first = splitted.shift();
       // tslint:disable-next-line
-      if (first == undefined) return;
+      if (typeof first === 'undefined') return;
       if (first) {
         lines[lines.length - 1].push({ str: first, type });
 
@@ -105,9 +105,11 @@ export default class PrismParser {
       });
     }
 
-    const { regexp } = options.get();
-    const lines: IPrismMatch[][] = [[]]; // All document, parsed
-    const matches: IPrismMatch[][] = [[]]; // Brackets with their parsed type
+    const { regexp } = getOptions();
+    // All document, parsed
+    const lines: IPrismMatch[][] = [[]];
+    // Brackets with their parsed type
+    const matches: IPrismMatch[][] = [[]];
 
     perLine(tokenized);
     return { parsed: lines, matches };

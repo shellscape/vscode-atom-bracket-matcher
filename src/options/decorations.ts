@@ -1,18 +1,20 @@
 import * as vscode from 'vscode';
-import * as deep from 'lodash.clonedeep';
-import pairs from './pairs';
+import deep from 'lodash.clonedeep';
+
+import { getPairs } from './pairs';
 
 let decorations: { [key: string]: vscode.TextEditorDecorationType } = {};
-function setDecorations(settings: vscode.WorkspaceConfiguration) {
+
+export const setDecorations = (settings: vscode.WorkspaceConfiguration) => {
   const styles = {
     global: deep(settings.style),
-    ...Object.keys(pairs.get()).reduce((acc, id) => {
-      const pair = pairs.get()[id];
+    ...Object.keys(getPairs()).reduce((acc, id) => {
+      const pair = getPairs()[id];
       if (pair && pair.style && typeof pair.style === 'object') {
         acc[id] = pair.style;
       }
       return acc;
-    }, {})
+    }, {} as any)
   };
 
   // Build decorations
@@ -32,16 +34,9 @@ function setDecorations(settings: vscode.WorkspaceConfiguration) {
 
     acc[styleFor] = vscode.window.createTextEditorDecorationType(style);
     return acc;
-  }, {});
+  }, {} as any);
 
   return decorations;
-}
-
-function getDecorations() {
-  return decorations;
-}
-
-export default {
-  set: setDecorations,
-  get: getDecorations
 };
+
+export const getDecorations = () => decorations;

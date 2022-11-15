@@ -1,8 +1,9 @@
 import * as vscode from 'vscode';
-import Engine from './Engine';
-import logger from './utils/logger';
 
-class Controller {
+import { Engine } from './Engine';
+import { logger } from './utils/logger';
+
+export class Controller {
   private disposable: vscode.Disposable;
   private engine: Engine;
 
@@ -49,5 +50,3 @@ class Controller {
     this.disposable.dispose();
   }
 }
-
-export default Controller;

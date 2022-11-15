@@ -1,24 +1,18 @@
 import { IBrackets } from '../types';
-import pairs from './pairs';
-import Bracket from './Bracket';
+
+import { getPairs } from './pairs';
+import { Bracket } from './Bracket';
 
 let brackets: IBrackets = {};
 
-function setBrackets() {
-  brackets = Object.keys(pairs.get()).reduce((acc, id) => {
-    const pair = pairs.get()[id];
+export const setBrackets = () => {
+  brackets = Object.keys(getPairs()).reduce((acc, id) => {
+    const pair = getPairs()[id];
     acc[pair.open] = new Bracket(id, true);
     acc[pair.close] = new Bracket(id, false);
     return acc;
-  }, {});
+  }, {} as any);
   return brackets;
-}
-
-function getBrackets() {
-  return brackets;
-}
-
-export default {
-  set: setBrackets,
-  get: getBrackets
 };
+
+export const getBrackets = () => brackets;

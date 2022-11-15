@@ -1,24 +1,23 @@
 import * as vscode from 'vscode';
-import Controller from './Controller';
-import options from './options';
-import logger from './utils/logger';
+
+import { Controller } from './Controller';
+import { setOptions } from './options';
+import { logger } from './utils/logger';
 
 function getSettings() {
   const settings = vscode.workspace.getConfiguration('subtleBrackets');
   return { settings, string: JSON.stringify(settings) };
 }
 
-function disableNative(settings) {
+function disableNative(settings: any) {
   if (!settings.disableNative) return;
-  vscode.workspace
-    .getConfiguration()
-    .update('editor.matchBrackets', false, true);
+  vscode.workspace.getConfiguration().update('editor.matchBrackets', false, true);
 }
 
 export function activate(context: vscode.ExtensionContext) {
   let settings = getSettings();
   disableNative(settings.settings);
-  options.set(settings.settings);
+  setOptions(settings.settings);
   const controller = new Controller();
 
   // Register Save Event
@@ -30,7 +29,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     settings = current;
     disableNative(settings.settings);
-    options.set(settings.settings);
+    setOptions(settings.settings);
     controller.reset();
   });
 
@@ -47,12 +46,8 @@ export function deactivate(context: vscode.ExtensionContext) {
   const disabledNative = vscode.workspace
     .getConfiguration()
     .get<boolean>('subtleBrackets.disableNative');
-  const matchBrackets = vscode.workspace
-    .getConfiguration()
-    .get<boolean>('editor.matchBrackets');
+  const matchBrackets = vscode.workspace.getConfiguration().get<boolean>('editor.matchBrackets');
   if (disabledNative && !matchBrackets) {
-    vscode.workspace
-      .getConfiguration()
-      .update('editor.matchBrackets', true, true);
+    vscode.workspace.getConfiguration().update('editor.matchBrackets', true, true);
   }
 }
