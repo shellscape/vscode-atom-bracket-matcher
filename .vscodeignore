@@ -1,6 +1,9 @@
 *
 .husky
-src
+node_modules/**/.*
+node_modules/**/*.md
+node_modules/**/*.yml
+node_modules/**/test
+node_modules/**/LICENSE
 !dist
 !LICENSE
-!node_modules
