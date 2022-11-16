@@ -1,9 +1,12 @@
 *
 .husky
+assets
 node_modules/**/.*
 node_modules/**/*.md
 node_modules/**/*.yml
 node_modules/**/test
 node_modules/**/LICENSE
+!assets/icon-256.png
 !dist
 !LICENSE
+!README.md

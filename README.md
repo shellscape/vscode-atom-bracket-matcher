@@ -1,42 +1,52 @@
-# Subtle Brackets
+[![marketplace](https://img.shields.io/badge/on-marketplace-blue)](https://marketplace.visualstudio.com/items?itemName=shellscape.shellscape.brackets)
+[![openvsx](https://img.shields.io/badge/on-openvsx-blueviolet)](https://open-vsx.org/extension/shellscape/shellscape-brackets)
+[![libera manifesto](https://img.shields.io/badge/libera-manifesto-lightgrey.svg)](https://liberamanifesto.com)
 
-![Logo](https://raw.githubusercontent.com/rafamel/subtle-brackets/master/images/icon_128.png)
+# Shellscape Brackets
 
-_Underlined matching brackets and more for Visual Studio Code._
+<div align="center">
+	<img width="256" src="https://raw.githubusercontent.com/shellscape/vscode-shellscape-brackets/master/assets/icon-256.png" alt="shellscape-brackets"><br/><br/>
+</div>
 
-[Subtle Brackets @ Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=rafamel.subtle-brackets)
+A subtle bracket match decorator for VS Code based on Atom.
 
----
+<div align="center">
+	<img width="296" src="https://raw.githubusercontent.com/shellscape/vscode-shellscape-brackets/master/assets/example.png" alt="shellscape-brackets"><br/><br/>
+</div>
 
-_Subtle Brackets_ allows custom styling of matching brackets as VSCode currently [boxes them](https://github.com/Microsoft/vscode/issues/23606), [impairing visibility](https://github.com/Microsoft/vscode/issues/19534). By default, it applies a subtle light/dark underline to the bracket next to the cursor and its matching pair:
+_Shellscape Brackets_ applies a customizable, subtle dotted underline to matching bracket pairs next to the cursor, inspired by Atom's bracket matcher. By default, VS Code [uses outline boxes](https://github.com/Microsoft/vscode/issues/23606), which [impares visibility](https://github.com/Microsoft/vscode/issues/19534).
 
-![After](https://raw.githubusercontent.com/rafamel/subtle-brackets/master/images/example.png)
+## Requirements
 
-You can also customize the style applied to matching brackets.
+This extension requires VS Code v1.73.0 or greater.
 
-<!-- ![Settings](https://raw.githubusercontent.com/rafamel/subtle-brackets/master/images/rundown.gif) -->
+## Options
 
-## Extension Settings
+Options for this extension can be set in the [User `settings.json`](https://code.visualstudio.com/docs/getstarted/settings#_settingsjson), and should be prefixed with `shellscapeBrackets`.
 
-| Setting                          | Default                                                                                         | Description                                                                                                                                                                                                                                     |
-| -------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **subtleBrackets.disableNative** | `true`                                                                                          | _Subtle Brackets_ permanently disables the native `matchBrackets` by default. Turn to `false` to prevent this behavior.                                                                                                                         |
-| **subtleBrackets.parse**         | `true`                                                                                          | If `true`, documents will be properly parsed via [Prism](http://prismjs.com/), whenever possible, so brackets within strings and comments don't trigger the decoration. There are [some edge cases](http://prismjs.com/examples.html#failures). |
-| **subtleBrackets.style**         | `{ "borderWidth": "1px", "borderStyle": "none none solid none" }`                               | Change the default style applied to matching brackets. The default is a light/dark underline (depending on your current theme).                                                                                                                 |
-| **subtleBrackets.pairs**         | `[{ "open": "(", "close": ")" }, { "open": "[", "close": "]" }, { "open": "{", "close": "}" }]` | An array of objects defining the bracket pairs to match. They can also define specific styles and whether to take parsing into account for each specific pair.                                                                                  |
+### `shellscapeBrackets.disableNative`
 
-### Pairs
+Type: `boolean`<br>
+Default: `true`
 
-Each pair definitition **must** have the `open` and `close` keys, and **can** optionally take custom `style` and `parse` keys for the pair.
+If true, disables VS Code's `matchBrackets` core extension. Set to `false` to prevent disabling `matchBrackets`.
 
-As an example, here's how you would disable parsing for the `()` bracket pair, and set a red underline for `{}`.
+### `shellscapeBrackets.parse`
 
-```javascript
-"subtleBrackets.pairs" : [
+Type: `boolean`<br>
+Default: `true`
+
+If `true`, documents will be parsed using [Prism](http://prismjs.com/) to prevent brackets within strings and comments from being decorated. _Note: [Edge cases](http://prismjs.com/examples.html#failures) may occur_.
+
+### `shellscapeBrackets.pairs`
+
+Bracket pairs consist of an `open` and `close` character, specified by properties of the same name. The default pairs can be seen below:
+
+```json
+"shellscapeBrackets.pairs": [
   {
     "open": "(",
-    "close": ")",
-    "parse": false
+    "close": ")"
   },
   {
     "open": "[",
@@ -44,45 +54,48 @@ As an example, here's how you would disable parsing for the `()` bracket pair, a
   },
   {
     "open": "{",
-    "close": "}",
-    "style": { "borderColor": "red" }
-  }
-]
-```
-
-### Style
-
-If you wish, you can change the default style applied to matching brackets by modifying the **subtleBrackets.style** property. For a list of allowed styles check [DecorationRenderOptions](https://code.visualstudio.com/docs/extensionAPI/vscode-api#DecorationRenderOptions).
-
-As an example, here's how you would set a 2px blue underline default style:
-
-```javascript
-"subtleBrackets.style": {
-  "borderColor": "blue",
-  "borderWidth": "2px"
-}
-```
-
-You can also target a specific bracket pair by setting a `style` key within its definition. As an example, here's how we'd assign a white font over red a background to the `"[]"` pair.
-
-```javascript
-"subtleBrackets.pairs" : [
-  {
-    "open": "(",
-    "close": ")"
-  },
-  {
-    "open": "[",
-    "close": "]",
-    "style": {
-      "color": "white",
-      "backgroundColor": "red",
-      "borderStyle": "none"
-    }
-  },
-  {
-    "open": "{",
     "close": "}"
   }
 ]
 ```
+
+Parsing can also be disabled for a specific pair, using the `parse: false` property, as seen below:
+
+```json
+"shellscapeBrackets.pairs": [
+  {
+    "open": "(",
+    "close": ")",
+    "parse": false
+  },
+  ...
+]
+```
+
+### `shellscapeBrackets.style`
+
+The appearance of the bracket decorations can be customized using the properties as seen in the default settings seen below. While the extension technically allows any properties [available to decorations](https://code.visualstudio.com/docs/extensionAPI/vscode-api#DecorationRenderOptions), it only officially supports the properties seen below.
+
+```json
+"shellscapeBrackets.style": {
+  "borderColor": "lime",
+  "borderStyle": "none none dotted none",
+  "borderWidth": "1px"
+}
+```
+
+Bracket pairs can also be customized, by adding a `style` property to a pair definition.
+
+```json
+"shellscapeBrackets.pairs" : [{
+  "open": "{",
+  "close": "}",
+  "style": {
+    "color": "#ff00ff"
+  }
+}]
+```
+
+## Meta
+
+[LICENSE (MIT)](/LICENSE)

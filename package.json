@@ -68,25 +68,26 @@
       "type": "object",
       "title": "Subtle Brackets",
       "properties": {
-        "subtleBrackets.disableNative": {
+        "shellscapeBrackets.disableNative": {
           "type": "boolean",
           "default": true,
           "description": "Permanently disable the native matchBrackets"
         },
-        "subtleBrackets.parse": {
+        "shellscapeBrackets.parse": {
           "type": "boolean",
           "default": true,
           "description": "If true, the document will be parsed so brackets within strings don't trigger the decoration"
         },
-        "subtleBrackets.style": {
+        "shellscapeBrackets.style": {
           "type": "object",
           "default": {
-            "borderWidth": "1px",
-            "borderStyle": "none none solid none"
+            "borderColor": "lime",
+            "borderStyle": "none none dotted none",
+            "borderWidth": "1px"
           },
           "description": "Default style for matching brackets"
         },
-        "subtleBrackets.pairs": {
+        "shellscapeBrackets.pairs": {
           "type": "array",
           "default": [
             {

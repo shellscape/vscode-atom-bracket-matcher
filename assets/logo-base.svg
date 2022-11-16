@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="430" height="430" viewBox="0 0 430 430">
+  <defs>
+    <filter id="Rectangle_1" x="0" y="0" width="430" height="430" filterUnits="userSpaceOnUse">
+      <feOffset dx="10" dy="10" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Group_5" data-name="Group 5" transform="translate(-196 -169)">
+    <g transform="matrix(1, 0, 0, 1, 196, 169)" filter="url(#Rectangle_1)">
+      <rect id="Rectangle_1-2" data-name="Rectangle 1" width="400" height="400" rx="59" transform="translate(5 5)" fill="#333"/>
+    </g>
+    <g id="Group_4" data-name="Group 4" transform="translate(1 -4.594)">
+      <path id="Path_2" data-name="Path 2" d="M128.788,128.616H117.414q-29.664,0-44.111-13.152T58.856,75.571V25.577a43.961,43.961,0,0,0-1.691-12.716,20.587,20.587,0,0,0-5.917-9.446,27.989,27.989,0,0,0-11.22-5.886,64.151,64.151,0,0,0-17.6-2.035H15.82v-20.2h6.609a78.591,78.591,0,0,0,18.29-1.744,25.59,25.59,0,0,0,11.066-5.3,18.507,18.507,0,0,0,5.533-9.083,49.145,49.145,0,0,0,1.537-13.08V-88.361a73.479,73.479,0,0,1,3.074-22.017A39.789,39.789,0,0,1,72-127.091,45.975,45.975,0,0,1,90.133-137.7q11.143-3.706,27.281-3.706h11.374v20.346H119.72q-35.658,0-35.658,32.7V-54.5q0,35.46-32.43,39.966,32.738,3.052,32.738,39.82v49.7q0,33.28,35.35,33.28h9.068Z" transform="translate(229.18 364)" fill="#a3a3a3"/>
+      <path id="Path_1" data-name="Path 1" d="M22.363-141.406H33.737q29.664,0,44.111,13.152T92.3-88.361V-54.79a43.961,43.961,0,0,0,1.691,12.716A20.587,20.587,0,0,0,99.9-32.627a27.986,27.986,0,0,0,11.3,5.886,65.009,65.009,0,0,0,17.675,2.035h6.609v20.2h-6.609a79.615,79.615,0,0,0-18.367,1.744q-7.147,1.744-11.143,5.3a18.507,18.507,0,0,0-5.533,9.083A49.145,49.145,0,0,0,92.3,24.706V75.571a73.479,73.479,0,0,1-3.074,22.017,40.171,40.171,0,0,1-9.99,16.713Q72.315,121.2,61.1,124.91t-27.358,3.706H22.363V108.27h9.222q35.5,0,35.5-32.7V25.287q0-35.46,32.43-39.82Q66.782-17.876,66.782-54.5V-87.78q0-33.28-35.2-33.28H22.363Z" transform="translate(419.147 364)" fill="#a3a3a3"/>
+      <g id="Group_2" data-name="Group 2" transform="translate(251 514.452)">
+        <rect id="Rectangle_2" data-name="Rectangle 2" width="20" height="20" transform="translate(0 -0.452)" fill="#93be54"/>
+        <rect id="Rectangle_4" data-name="Rectangle 4" width="20" height="20" transform="translate(40 -0.452)" fill="#93be54"/>
+        <rect id="Rectangle_6" data-name="Rectangle 6" width="20" height="20" transform="translate(80 -0.452)" fill="#93be54"/>
+      </g>
+      <g id="Group_3" data-name="Group 3" transform="translate(448.51 514.452)">
+        <rect id="Rectangle_7" data-name="Rectangle 7" width="20" height="20" transform="translate(0.49 -0.452)" fill="#93be54"/>
+        <rect id="Rectangle_9" data-name="Rectangle 9" width="20" height="20" transform="translate(40.49 -0.452)" fill="#93be54"/>
+        <rect id="Rectangle_11" data-name="Rectangle 11" width="20" height="20" transform="translate(80.49 -0.452)" fill="#93be54"/>
+      </g>
+    </g>
+  </g>
+</svg>
