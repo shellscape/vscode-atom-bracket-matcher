@@ -14,7 +14,7 @@ A subtle bracket match decorator for VS Code based on Atom.
 	<img width="296" src="https://raw.githubusercontent.com/shellscape/vscode-shellscape-brackets/master/assets/example.png" alt="shellscape-brackets"><br/><br/>
 </div>
 
-_Shellscape Brackets_ applies a customizable, subtle dotted underline to matching bracket pairs next to the cursor, inspired by Atom's bracket matcher. By default, VS Code [uses outline boxes](https://github.com/Microsoft/vscode/issues/23606), which [impares visibility](https://github.com/Microsoft/vscode/issues/19534).
+_Shellscape Brackets_ applies a customizable, subtle dotted underline to matching bracket pairs next to the cursor, inspired by Atom's bracket matcher. By default, VS Code [uses outline boxes](https://github.com/Microsoft/vscode/issues/23606), which [impairs visibility](https://github.com/Microsoft/vscode/issues/19534).
 
 ## Requirements
 
