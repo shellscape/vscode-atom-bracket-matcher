@@ -5,7 +5,7 @@ import { setOptions } from './options';
 import { logger } from './utils/logger';
 
 function getSettings() {
-  const settings = vscode.workspace.getConfiguration('subtleBrackets');
+  const settings = vscode.workspace.getConfiguration('shellscapeBrackets');
   return { settings, string: JSON.stringify(settings) };
 }
 
@@ -45,7 +45,7 @@ export function deactivate(context: vscode.ExtensionContext) {
   // Reset native 'editor.matchBrackets'
   const disabledNative = vscode.workspace
     .getConfiguration()
-    .get<boolean>('subtleBrackets.disableNative');
+    .get<boolean>('shellscapeBrackets.disableNative');
   const matchBrackets = vscode.workspace.getConfiguration().get<boolean>('editor.matchBrackets');
   if (disabledNative && !matchBrackets) {
     vscode.workspace.getConfiguration().update('editor.matchBrackets', 'always', true);
